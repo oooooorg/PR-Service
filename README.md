@@ -3,7 +3,6 @@
 ## Быстрый старт
 
 `git clone https://github.com/oooooorg/PR-Service.git`   
-`cd PR-Service`  
 ``docker-compose up``
 
 После успешного старта, API будет доступно по адресу localhost:8080.  
