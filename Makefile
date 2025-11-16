@@ -27,9 +27,6 @@ clean:
 	docker-compose down -v
 	docker system prune -f
 
-test:
-	docker-compose run --rm app go test ./...
-
 migrate:
 	docker-compose run --rm migrate
 
