@@ -18,7 +18,7 @@ func (s *Server) PostTeamAdd(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	team, err := s.teamService.CreateTeam(ctx.Request().Context(), &body)
+	team, err := s.TeamService.CreateTeam(ctx.Request().Context(), &body)
 	if err != nil {
 		if errors.Is(err, service.ErrTeamExists) {
 			return ctx.JSON(http.StatusBadRequest, api.ErrorResponse{
@@ -38,7 +38,7 @@ func (s *Server) PostTeamAdd(ctx echo.Context) error {
 }
 
 func (s *Server) GetTeamGet(ctx echo.Context, params api.GetTeamGetParams) error {
-	team, err := s.teamService.GetTeam(ctx.Request().Context(), &params)
+	team, err := s.TeamService.GetTeam(ctx.Request().Context(), &params)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return ctx.JSON(http.StatusNotFound, api.ErrorResponse{

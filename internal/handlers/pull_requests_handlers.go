@@ -17,7 +17,7 @@ func (s *Server) PostPullRequestCreate(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	pr, err := s.pullRequestService.CreatePullRequest(ctx.Request().Context(), &body)
+	pr, err := s.PullRequestService.CreatePullRequest(ctx.Request().Context(), &body)
 	if err != nil {
 		if errors.Is(err, service.ErrUserNotFound) || errors.Is(err, service.ErrTeamNotFound) {
 			return ctx.JSON(http.StatusNotFound, api.ErrorResponse{
@@ -55,7 +55,7 @@ func (s *Server) PostPullRequestMerge(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	pr, err := s.pullRequestService.MergePullRequest(ctx.Request().Context(), &body)
+	pr, err := s.PullRequestService.MergePullRequest(ctx.Request().Context(), &body)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return ctx.JSON(http.StatusNotFound, api.ErrorResponse{
@@ -81,7 +81,7 @@ func (s *Server) PostPullRequestReassign(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	pr, replacedBy, err := s.pullRequestService.ReassignReviewer(ctx.Request().Context(), &body)
+	pr, replacedBy, err := s.PullRequestService.ReassignReviewer(ctx.Request().Context(), &body)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) || errors.Is(err, service.ErrUserNotFound) {
 			return ctx.JSON(http.StatusNotFound, api.ErrorResponse{
@@ -141,7 +141,7 @@ func (s *Server) PostPullRequestReassign(ctx echo.Context) error {
 }
 
 func (s *Server) GetUsersGetReview(ctx echo.Context, params api.GetUsersGetReviewParams) error {
-	pullRequests, err := s.pullRequestService.GetUserReviewRequests(ctx.Request().Context(), &params)
+	pullRequests, err := s.PullRequestService.GetUserReviewRequests(ctx.Request().Context(), &params)
 	if err != nil {
 		if errors.Is(err, service.ErrUserNotFound) {
 			return ctx.JSON(http.StatusNotFound, api.ErrorResponse{

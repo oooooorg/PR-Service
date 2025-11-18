@@ -12,9 +12,9 @@ import (
 type Server struct {
 	db                 *sql.DB
 	cfg                *config.Config
-	pullRequestService service.PullRequestService
-	teamService        service.TeamService
-	userService        service.UserService
+	PullRequestService service.PullRequestService
+	TeamService        service.TeamService
+	UserService        service.UserService
 	logger             *slog.Logger
 }
 
@@ -27,8 +27,8 @@ func NewServer(logger *slog.Logger, db *sql.DB, cfg *config.Config) *Server {
 		logger:             logger,
 		db:                 db,
 		cfg:                cfg,
-		pullRequestService: service.NewPullRequestService(logger, pullRequestRepository, userRepository, teamRepository),
-		teamService:        service.NewTeamService(logger, userRepository, teamRepository),
-		userService:        service.NewUserService(logger, userRepository, teamRepository),
+		PullRequestService: service.NewPullRequestService(logger, pullRequestRepository, userRepository, teamRepository),
+		TeamService:        service.NewTeamService(logger, userRepository, teamRepository),
+		UserService:        service.NewUserService(logger, userRepository, teamRepository),
 	}
 }
