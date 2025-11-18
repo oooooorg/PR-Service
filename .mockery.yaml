@@ -1,0 +1,18 @@
+log-level: warn
+with-expecter: true
+
+resolve-type-alias: false
+disable-version-string: true
+issue-845-fix: true
+
+packages:
+  github.com/oooooorg/PR-Service/internal/service:
+    config:
+      dir: internal/handlers/mocks
+      outpkg: mocks
+      filename: "mock_{{.InterfaceName}}.go"
+      mockname: "Mock{{.InterfaceName}}"
+    interfaces:
+      PullRequestService:
+      TeamService:
+      UserService:

@@ -16,7 +16,7 @@ func (s *Server) PostUsersSetIsActive(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	user, err := s.userService.SetUserActive(ctx.Request().Context(), &body)
+	user, err := s.UserService.SetUserActive(ctx.Request().Context(), &body)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return ctx.JSON(http.StatusNotFound, api.ErrorResponse{
